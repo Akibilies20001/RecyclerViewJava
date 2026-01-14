@@ -12,4 +12,12 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"
         />
+    <item
+        android:id="@+id/orientation_action"
+        android:icon="@drawable/swap_vert"
+        android:title="Orientation"
+        app:showAsAction="always"
+
+
+        />
 </menu>

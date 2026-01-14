@@ -10,29 +10,52 @@
     >
 
 
-
         <androidx.appcompat.widget.Toolbar
 
             android:id="@+id/main_activity_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            >
+            android:layout_height="wrap_content">
 
         </androidx.appcompat.widget.Toolbar>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-<!--    <ProgressBar-->
+
+<!--                <ImageButton-->
+<!--                    android:id="@+id/orientation_btn"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:srcCompat="@drawable/change_orientation" />-->
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <!--    <ProgressBar-->
 <!--        android:id="@+id/progress_bar"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:progressTint="@color/yellow"-->
 <!--        android:visibility="visible"-->
 <!--        />-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/vertical_View"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/vertical_View"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="gone"-->
+<!--        />-->
 
 </LinearLayout>

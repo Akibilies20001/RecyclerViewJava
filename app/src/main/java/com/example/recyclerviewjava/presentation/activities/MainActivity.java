@@ -1,5 +1,8 @@
 package com.example.recyclerviewjava.presentation.activities;
 
+import static androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL;
+import static androidx.viewpager2.widget.ViewPager2.ORIENTATION_VERTICAL;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,9 +10,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +25,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.recyclerviewjava.R;
 import com.example.recyclerviewjava.data.FoodApi;
@@ -38,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     MainViewModel vm;
     Toolbar toolbar;
     RecyclerView recyclerView;
+
+    ViewPager2 viewPager;
+   // ImageButton imageButton;
 
 
    // ProgressBar progressBar;
@@ -58,13 +67,34 @@ public class MainActivity extends AppCompatActivity {
         //progressBar = findViewById(R.id.progress_bar);
 
         vm = new ViewModelProvider(this).get(MainViewModel.class);
+        //imageButton = findViewById(R.id.orientation_btn);
 
-        recyclerView = findViewById(R.id.vertical_View);
+
+        viewPager = findViewById(R.id.view_pager);
+        //recyclerView = findViewById(R.id.vertical_View);
         toolbar = findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(toolbar); //??
         categoryAdapter = new CategoryAdapter(categories, MainActivity.this);
-        recyclerView.setAdapter(categoryAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        viewPager.setAdapter(categoryAdapter);
+        viewPager.setOrientation(ORIENTATION_VERTICAL);
+
+//        imageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(viewPager.getOrientation() == ORIENTATION_VERTICAL ){
+//                    viewPager.setOrientation(ORIENTATION_HORIZONTAL);
+//
+//                }else {
+//                    viewPager.setOrientation(ORIENTATION_VERTICAL);
+//                }
+//
+//
+//            }
+//        });
+
+//        recyclerView.setAdapter(categoryAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         vm.getCategoryListFromApi();
 
 
@@ -79,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     categories.addAll(categoryLists);
                     categoryAdapter.notifyDataSetChanged();
                     //progressBar.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
+                    //recyclerView.setVisibility(View.VISIBLE);
                     Log.d("Category in livedata", ""+categoryLists);
                 }
 
@@ -100,6 +130,25 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater() ;
         inflater.inflate(R.menu.search_menu,menu);
         MenuItem item = menu.findItem(R.id.search_action);
+        MenuItem item2 = menu.findItem(R.id.orientation_action);
+
+        item2.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+
+                if(viewPager.getOrientation() == ORIENTATION_VERTICAL ){
+                    viewPager.setOrientation(ORIENTATION_HORIZONTAL);
+                    item2.setIcon(R.drawable.swap_horiz);
+
+                }else {
+                    viewPager.setOrientation(ORIENTATION_VERTICAL);
+                    item2.setIcon(R.drawable.swap_vert);
+                }
+                return false;
+            }
+        });
+
+
         SearchView searchView = (SearchView) item.getActionView();//??
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
@@ -121,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
+
 
     private void filterCategories(String text) {
         if (text.isBlank()){
