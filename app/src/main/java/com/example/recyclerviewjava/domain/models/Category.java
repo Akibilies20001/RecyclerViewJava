@@ -1,7 +1,10 @@
-package com.example.recyclerviewjava;
+package com.example.recyclerviewjava.domain.models;
 
+
+import androidx.annotation.NonNull;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -14,6 +17,12 @@ public class Category {
 
     public List<CategoryList> getCategories() {
         return categories;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return ""+categories;
     }
 
     public void setCategories(List<CategoryList> categories) {

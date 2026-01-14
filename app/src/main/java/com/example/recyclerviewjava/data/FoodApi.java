@@ -1,6 +1,6 @@
-package com.example.recyclerviewjava;
+package com.example.recyclerviewjava.data;
 
-import java.util.ArrayList;
+import com.example.recyclerviewjava.domain.models.Category;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,4 +1,6 @@
-package com.example.recyclerviewjava;
+package com.example.recyclerviewjava.domain.models;
+
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +11,7 @@ import javax.annotation.processing.Generated;
 import com.google.gson.annotations.Expose;
 
 
-@Generated("jsonschema2pojo")
+
 public class CategoryList {
 
     @SerializedName("idCategory")
@@ -57,4 +59,9 @@ public class CategoryList {
         this.strCategoryDescription = strCategoryDescription;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return ""+idCategory+", "+strCategory+", "+strCategoryThumb+", "+strCategoryDescription;
+    }
 }

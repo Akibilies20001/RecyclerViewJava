@@ -1,4 +1,4 @@
-package com.example.recyclerviewjava;
+package com.example.recyclerviewjava.presentation.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,10 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.recyclerviewjava.presentation.activities.CategoryDetailActivity;
+import com.example.recyclerviewjava.R;
+import com.example.recyclerviewjava.domain.models.CategoryList;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+
 
     List<CategoryList> categoryList;
     Context context;
@@ -27,6 +32,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.categoryList = categories;
     }
 
+    public void setCategoryList(List<CategoryList> categoryList) {
+        this.categoryList = categoryList;
+        notifyDataSetChanged();
+    }
 
     class CategoryYellowViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
@@ -105,7 +114,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             categoryGreenViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,CategoryDetailActivity.class);
+                    Intent intent = new Intent(context, CategoryDetailActivity.class);
                     intent.putExtra("id", categoryList.get(pos).getIdCategory());
                     intent.putExtra("name", categoryList.get(pos).getStrCategory());
                     intent.putExtra("description", categoryList.get(pos).getStrCategoryDescription());

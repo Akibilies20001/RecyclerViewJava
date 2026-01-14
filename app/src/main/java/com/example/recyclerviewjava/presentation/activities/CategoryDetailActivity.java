@@ -1,8 +1,7 @@
-package com.example.recyclerviewjava;
+package com.example.recyclerviewjava.presentation.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.recyclerviewjava.R;
 
 public class CategoryDetailActivity extends AppCompatActivity {
 
