@@ -7,22 +7,49 @@
     android:layout_height="match_parent"
     tools:context=".presentation.activities.CategoryDetailActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+
+        <ImageButton
+            android:id="@+id/detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            app:srcCompat="@drawable/arrow_back" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Details"
+            android:textSize="24dp"/>
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/detail_imageView"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:text="TextView"
         android:textSize="32sp"
-        android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="@+id/detail_imageView"
         app:layout_constraintTop_toBottomOf="@+id/detail_imageView" />
 
@@ -30,10 +57,10 @@
         android:id="@+id/detail_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView gerhyergrhrtjhtrjtrhfhrjhtrjtrhgfhh gtrhh"
-        android:textSize="14sp"
         android:layout_marginHorizontal="8dp"
         android:layout_marginBottom="8dp"
+        android:text="TextView gerhyergrhrtjhtrjtrhfhrjhtrjtrhgfhh gtrhh"
+        android:textSize="14sp"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_name" />

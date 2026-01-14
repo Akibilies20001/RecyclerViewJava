@@ -2,6 +2,8 @@ package com.example.recyclerviewjava.presentation.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ public class CategoryDetailActivity extends AppCompatActivity {
 
     String id, name, description, thumb;
     ImageView image;
+    ImageButton back_buton;
     TextView name_text, description_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,24 @@ public class CategoryDetailActivity extends AppCompatActivity {
         this.description = intent.getStringExtra("description");
         this.thumb = intent.getStringExtra("thumb");
 
+        back_buton = findViewById(R.id.detail_back);
+        back_buton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
+            }
+        });
+
         image = findViewById(R.id.detail_imageView);
         name_text = findViewById(R.id.detail_name);
         description_text = findViewById(R.id.detail_description);
+
         Glide.with(this).load(thumb).into(image);
         name_text.setText(name);
         description_text.setText(description);
+
+
 
     }
 }

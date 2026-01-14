@@ -1,12 +1,16 @@
 package com.example.recyclerviewjava.presentation.activities;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
@@ -27,6 +31,7 @@ import com.example.recyclerviewjava.domain.models.Category;
 import com.example.recyclerviewjava.domain.models.CategoryList;
 import com.example.recyclerviewjava.presentation.adapters.CategoryAdapter;
 import com.example.recyclerviewjava.presentation.viewmodels.MainViewModel;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +41,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     MainViewModel vm;
-    Toolbar toolbar;
+    //Toolbar toolbar;
     RecyclerView recyclerView;
+
+
+    TextInputEditText textInputEditText;
+    ImageButton imageButton;
 
 
    // ProgressBar progressBar;
@@ -60,13 +69,54 @@ public class MainActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(MainViewModel.class);
 
         recyclerView = findViewById(R.id.vertical_View);
-        toolbar = findViewById(R.id.main_activity_toolbar);
-        setSupportActionBar(toolbar); //??
+       // toolbar = findViewById(R.id.main_activity_toolbar);
+        // setSupportActionBar(toolbar); //??
+
+        textInputEditText = findViewById(R.id.main_text_input);
+        imageButton = findViewById(R.id.search_btn);
+
+
+
         categoryAdapter = new CategoryAdapter(categories, MainActivity.this);
         recyclerView.setAdapter(categoryAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         vm.getCategoryListFromApi();
 
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (textInputEditText.getVisibility() == View.VISIBLE) {
+                    imageButton.setImageResource(R.drawable.search_icon);
+                    textInputEditText.setVisibility(View.INVISIBLE);
+                    textInputEditText.setText("");
+                    filterCategories("");
+                }else {
+                    imageButton.setImageResource(R.drawable.close_icon);
+                    textInputEditText.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
+
+        textInputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterCategories(s.toString());
+
+            }
+        });
 
 
 
@@ -87,40 +137,35 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {//??
-
-        MenuInflater inflater = getMenuInflater() ;
-        inflater.inflate(R.menu.search_menu,menu);
-        MenuItem item = menu.findItem(R.id.search_action);
-        SearchView searchView = (SearchView) item.getActionView();//??
-        searchView.setOnQueryTextListener(
-                new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-
-                        filterCategories(newText);
-
-                        return false;
-                    }
-                }
-        );
-
-
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {//??
+//
+//        MenuInflater inflater = getMenuInflater() ;
+//        inflater.inflate(R.menu.search_menu,menu);
+//        MenuItem item = menu.findItem(R.id.search_action);
+//        SearchView searchView = (SearchView) item.getActionView();//??
+//        searchView.setOnQueryTextListener(
+//                new SearchView.OnQueryTextListener() {
+//                    @Override
+//                    public boolean onQueryTextSubmit(String query) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onQueryTextChange(String newText) {
+//
+//                        filterCategories(newText);
+//
+//                        return false;
+//                    }
+//                }
+//        );
+//
+//
+//        return true;
+//    }
 
     private void filterCategories(String text) {
         if (text.isBlank()){
