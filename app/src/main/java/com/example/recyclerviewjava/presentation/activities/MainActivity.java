@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     imageButton.setImageResource(R.drawable.search_icon);
                     textInputEditText.setVisibility(View.INVISIBLE);
                     textInputEditText.setText("");
-                    filterCategories("");
+                    categoryAdapter.getFilter().filter("");
                 }else {
                     imageButton.setImageResource(R.drawable.close_icon);
                     textInputEditText.setVisibility(View.VISIBLE);
@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterCategories(s.toString());
+                categoryAdapter.getFilter().filter(s.toString());
+
 
             }
         });
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
 //                    categoryAdapter = new CategoryAdapter(categoryLists, MainActivity.this);
 //                    recyclerView.setAdapter(categoryAdapter);
                     categories.addAll(categoryLists);
+                    categoryAdapter.setCategoryList(categories);
                     categoryAdapter.notifyDataSetChanged();
                     //progressBar.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -167,32 +169,32 @@ public class MainActivity extends AppCompatActivity {
 //        return true;
 //    }
 
-    private void filterCategories(String text) {
-        if (text.isBlank()){
-
-            categoryAdapter.setCategoryList(categories);
-
-        }else {
-
-            List<CategoryList> data = new ArrayList<>();
-
-            for(int position = 0; position<categories.size(); position++){
-
-                CategoryList category = categories.get(position);
-
-                if (category.getStrCategory().toLowerCase().contains(text.toLowerCase())){
-                    data.add(category);
-                }
-
-            }
-            categoryAdapter.setCategoryList(data);
-
-        }
-
-
-
-
-    }
+//    private void filterCategories(String text) {
+//        if (text.isBlank()){
+//
+//            categoryAdapter.setCategoryList(categories);
+//
+//        }else {
+//
+//            List<CategoryList> data = new ArrayList<>();
+//
+//            for(int position = 0; position<categories.size(); position++){
+//
+//                CategoryList category = categories.get(position);
+//
+//                if (category.getStrCategory().toLowerCase().contains(text.toLowerCase())){
+//                    data.add(category);
+//                }
+//
+//            }
+//            categoryAdapter.setCategoryList(data);
+//
+//        }
+//
+//
+//
+//
+//    }
 
     private void getCategories() {
 

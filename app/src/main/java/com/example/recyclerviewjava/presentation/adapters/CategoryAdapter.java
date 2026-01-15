@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,17 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.recyclerviewjava.domain.FilterData;
 import com.example.recyclerviewjava.presentation.activities.CategoryDetailActivity;
 import com.example.recyclerviewjava.R;
 import com.example.recyclerviewjava.domain.models.CategoryList;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements FilterData {
 
 
 
     List<CategoryList> categoryList;
+    List<CategoryList> reserveCategoryList =new ArrayList<>();
+
     Context context;
     public CategoryAdapter(
             List<CategoryList>  categories,
@@ -30,12 +35,52 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     ) {
         this.context = context;
         this.categoryList = categories;
+
     }
 
     public void setCategoryList(List<CategoryList> categoryList) {
         this.categoryList = categoryList;
+        this.reserveCategoryList.addAll(categoryList);
         notifyDataSetChanged();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<CategoryList> filteredList = new ArrayList<>();
+
+            if(constraint == null || constraint.length()<=0){
+                filteredList.addAll(reserveCategoryList);
+            }else {
+                String searchString = constraint.toString().trim().toLowerCase();
+                for(CategoryList item : categoryList){
+                    if(item.getStrCategory().toLowerCase().contains(searchString)){
+                        filteredList.add(item);
+                    }
+
+                }
+            }
+            FilterResults results= new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            categoryList.clear();
+            categoryList.addAll((List)results.values);
+            notifyDataSetChanged();
+
+        }
+    };
 
     class CategoryYellowViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
@@ -61,7 +106,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    class CategoryViewHolder extends RecyclerView.ViewHolder{
+    class CategoryViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView id, name;
         public CategoryViewHolder(@NonNull View itemView) {
@@ -71,6 +116,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             id = itemView.findViewById(R.id.category_id);
             name = itemView.findViewById(R.id.category_name);
         }
+
     }
 
     @NonNull
@@ -206,15 +252,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     }
-
-
-
-
-
-
-
-
-
 
 }
 
